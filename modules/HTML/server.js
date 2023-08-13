@@ -65,7 +65,7 @@ async function initialize() {
     res.sendFile("./index.html", { root: "./website" });
   });
 
-  if ((process.env.NODE_ENV || "").trim() == "dev") {
+  if ((process.env.NODE_ENV || "").trim() == "dev" || process.env.NODE_ENV === undefined) {
     console.log("Building...");
     await new Promise((res) =>
       exec("lua build.lua", (error, stdout, stderr) => {
