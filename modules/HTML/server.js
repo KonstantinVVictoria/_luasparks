@@ -44,7 +44,6 @@ async function initialize() {
       }
     } catch (error) {}
   }
-
   const files = fs.readdirSync(path.join(process.cwd(), "/website/"));
   for (file of files) {
     if (file.search(".html") > -1 && file.search("index") === -1) {
@@ -65,7 +64,10 @@ async function initialize() {
     res.sendFile("./index.html", { root: "./website" });
   });
 
-  if ((process.env.NODE_ENV || "").trim() == "dev") {
+  if (
+    (process.env.NODE_ENV || "").trim() == "dev" ||
+    process.env.NODE_ENV == undefined
+  ) {
     console.log("Building...");
     await new Promise((res) =>
       exec("lua build.lua", (error, stdout, stderr) => {
